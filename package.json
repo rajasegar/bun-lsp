@@ -8,6 +8,10 @@
     "dev": "npm run build && npm link",
     "build": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rajasegar/bun-lsp"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -22,5 +26,11 @@
   "bin": {
     "bun-lsp": "./out/server.js",
     "bun_lsp": "./out/server.js"
-  }
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "activationEvents": [
+    "onLanguage:javascript"
+  ]
 }

@@ -7,6 +7,8 @@ import {
   TextDocumentSyncKind,
   DidChangeConfigurationNotification,
   MarkupKind,
+  SignatureHelp,
+  TextDocumentPositionParams,
 } from 'vscode-languageserver/node';
 import { TextDocument } from "vscode-languageserver-textdocument";
 
@@ -100,16 +102,40 @@ connection.onCompletion((_textDocumentPosition) => {
   */
 });
 
+function provideSignatureHelp(params: TextDocumentPositionParams): SignatureHelp | null {
+    // Implement your logic here to compute signature help information based on the params.
+    // You might parse the document, determine the function being called, and fetch signature details.
 
+    const signature: SignatureHelp = {
+        signatures: [
+            {
+                label: 'Bun.file(path)',
+                documentation: 'This is the documentation for the function.',
+                parameters: [
+                    {
+                        label: 'path',
+                        documentation: 'Description of path',
+                    },
+/*
+                    {
+                        label: 'param2',
+                        documentation: 'Description of param2',
+                    },
+                    */
+                ],
+            },
+        ],
+        activeSignature: 0,
+        activeParameter: 0, // Set this to the currently selected parameter if applicable.
+    };
 
+    return signature;
+}
 
-
-
-
-
-
-
-
+connection.onSignatureHelp((params: TextDocumentPositionParams): SignatureHelp | null => {
+    // Call your signature help provider function
+    return provideSignatureHelp(params);
+});
 
 
 connection.onCompletionResolve((item) => {
